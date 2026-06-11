@@ -35,12 +35,30 @@ const projects = [
   },
 ];
 
-const experience = [
-  "Coordenação de projetos internos e externos como Product Owner, conectando equipes e clientes.",
-  "Desenvolvimento de aplicações mobile com React Native, priorizando usabilidade e soluções funcionais.",
-  "Criação de layouts corporativos modernos, responsivos e alinhados à identidade visual dos clientes.",
-  "Monitorias sobre linguagens de programação e desenvolvimento mobile em React Native.",
-  "Liderança da área de patrocínios da Semana Acadêmica de Computação da UFPR.",
+const experiences = [
+  {
+    period: "Set. 2025 — atualmente",
+    company: "Banco do Brasil",
+    role: "Estagiário de Análise de Dados",
+    activities: [
+      "Análise e refinamento de dados para apoiar tomadas de decisão.",
+      "Execução e acompanhamento de rotinas de dados.",
+      "Produção de relatórios gerenciais.",
+      "Organização e tratamento de informações para uso analítico.",
+    ],
+  },
+  {
+    period: "Abr. 2024 — atualmente",
+    company: "ECOMP — Empresa Júnior",
+    role: "Diretor Presidente",
+    activities: [
+      "Coordenação de projetos internos e externos como Product Owner, conectando equipes e clientes.",
+      "Desenvolvimento de aplicações mobile com React Native, priorizando usabilidade e soluções funcionais.",
+      "Criação de layouts corporativos modernos, responsivos e alinhados à identidade visual dos clientes.",
+      "Monitorias sobre linguagens de programação e desenvolvimento mobile em React Native.",
+      "Liderança da área de patrocínios da Semana Acadêmica de Computação da UFPR.",
+    ],
+  },
 ];
 ---
 
@@ -137,18 +155,24 @@ const experience = [
           <p class="eyebrow">Trajetória</p>
           <h2>Experiência</h2>
         </div>
-        <article class="timeline-card">
-          <div class="timeline-meta">
-            <p class="period">Abr. 2024 — atualmente</p>
-            <p class="company">ECOMP — Empresa Júnior</p>
-          </div>
-          <div>
-            <h3>Diretor Presidente</h3>
-            <ul class="feature-list">
-              {experience.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
-        </article>
+        <div class="timeline-list">
+          {
+            experiences.map((experience) => (
+              <article class="timeline-card">
+                <div class="timeline-meta">
+                  <p class="period">{experience.period}</p>
+                  <p class="company">{experience.company}</p>
+                </div>
+                <div>
+                  <h3>{experience.role}</h3>
+                  <ul class="feature-list">
+                    {experience.activities.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+              </article>
+            ))
+          }
+        </div>
       </section>
 
       <section class="section" id="projetos">
