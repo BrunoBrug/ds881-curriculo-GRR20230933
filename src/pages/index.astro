@@ -1,5 +1,47 @@
 ---
-const title = "Currículo";
+import "../styles/global.css";
+
+const skills = [
+  {
+    title: "Linguagens",
+    items: ["C", "JavaScript", "TypeScript", "PHP", "Java", "Python"],
+  },
+  {
+    title: "Frameworks e bibliotecas",
+    items: ["Angular", "Spring Boot", "React", "React Native", "Pandas"],
+  },
+  {
+    title: "Banco de dados",
+    items: ["MySQL", "PostgreSQL", "MongoDB", "Oracle Database"],
+  },
+  {
+    title: "Práticas e ferramentas",
+    items: ["Git", "GitHub", "GitLab", "Scrum", "Kanban", "Docker"],
+  },
+];
+
+const projects = [
+  {
+    name: "Maintenance App",
+    stack: "Angular · Spring Boot",
+    description:
+      "Aplicação para gestão de solicitações de manutenção de equipamentos, com registro de usuários, acompanhamento de serviços e pagamentos.",
+  },
+  {
+    name: "Empresa Aérea",
+    stack: "Angular · Spring Boot · Docker · RabbitMQ · Microserviços",
+    description:
+      "Sistema de gestão de empresa aérea com compra de milhas, reserva de voos e funcionalidades administrativas para funcionários.",
+  },
+];
+
+const experience = [
+  "Coordenação de projetos internos e externos como Product Owner, conectando equipes e clientes.",
+  "Desenvolvimento de aplicações mobile com React Native, priorizando usabilidade e soluções funcionais.",
+  "Criação de layouts corporativos modernos, responsivos e alinhados à identidade visual dos clientes.",
+  "Monitorias sobre linguagens de programação e desenvolvimento mobile em React Native.",
+  "Liderança da área de patrocínios da Semana Acadêmica de Computação da UFPR.",
+];
 ---
 
 <!doctype html>
@@ -7,13 +49,192 @@ const title = "Currículo";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content="Currículo profissional" />
-    <title>{title}</title>
+    <meta
+      name="description"
+      content="Currículo de Bruno Brugnerotto de Lara, desenvolvedor Full Stack."
+    />
+    <meta name="theme-color" content="#123c49" />
+    <title>Bruno Brugnerotto de Lara | Desenvolvedor Full Stack</title>
   </head>
   <body>
+    <header class="hero">
+      <nav class="navigation" aria-label="Navegação principal">
+        <a class="brand" href="#inicio" aria-label="Ir para o início">BB</a>
+        <div class="nav-links">
+          <a href="#experiencia">Experiência</a>
+          <a href="#projetos">Projetos</a>
+          <a href="#formacao">Formação</a>
+        </div>
+      </nav>
+
+      <div class="hero-content" id="inicio">
+        <div class="hero-copy">
+          <p class="eyebrow">Olá, eu sou</p>
+          <h1>Bruno Brugnerotto de Lara</h1>
+          <p class="role">Desenvolvedor Full Stack</p>
+          <p class="intro">
+            Estudante de Análise e Desenvolvimento de Sistemas na UFPR, com
+            experiência em liderança, desenvolvimento web e mobile.
+          </p>
+          <div class="contact-actions">
+            <a
+              class="button button-primary"
+              href="mailto:brunobrugnerottodelara@gmail.com"
+            >
+              Entrar em contato
+            </a>
+            <a
+              class="button button-secondary"
+              href="https://github.com/brunobrug"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <aside class="contact-card" aria-label="Informações de contato">
+          <div class="monogram" aria-hidden="true">BB</div>
+          <dl>
+            <div>
+              <dt>E-mail</dt>
+              <dd>
+                <a href="mailto:brunobrugnerottodelara@gmail.com">
+                  brunobrugnerottodelara@gmail.com
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt>Telefone</dt>
+              <dd><a href="tel:+554199158040">(41) 9915-8040</a></dd>
+            </div>
+            <div>
+              <dt>Formação</dt>
+              <dd>Análise e Desenvolvimento de Sistemas · UFPR</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </header>
+
     <main>
-      <h1>{title}</h1>
-      <p>Infraestrutura Astro configurada.</p>
+      <section class="section about" id="sobre">
+        <div class="section-heading">
+          <p class="eyebrow">Perfil</p>
+          <h2>Sobre</h2>
+        </div>
+        <p class="lead">
+          Busco uma oportunidade em desenvolvimento para aplicar conhecimentos
+          em linguagens, frameworks e bancos de dados. Quero contribuir com o
+          time enquanto amplio minha experiência prática, capacidade técnica e
+          resolução de problemas em um ambiente dinâmico.
+        </p>
+      </section>
+
+      <section class="section" id="experiencia">
+        <div class="section-heading">
+          <p class="eyebrow">Trajetória</p>
+          <h2>Experiência</h2>
+        </div>
+        <article class="timeline-card">
+          <div class="timeline-meta">
+            <p class="period">Abr. 2024 — atualmente</p>
+            <p class="company">ECOMP — Empresa Júnior</p>
+          </div>
+          <div>
+            <h3>Diretor Presidente</h3>
+            <ul class="feature-list">
+              {experience.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" id="projetos">
+        <div class="section-heading">
+          <p class="eyebrow">Prática</p>
+          <h2>Projetos</h2>
+        </div>
+        <div class="project-grid">
+          {
+            projects.map((project) => (
+              <article class="project-card">
+                <div>
+                  <p class="project-stack">{project.stack}</p>
+                  <h3>{project.name}</h3>
+                </div>
+                <p>{project.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section two-columns" id="formacao">
+        <div>
+          <div class="section-heading">
+            <p class="eyebrow">Aprendizado</p>
+            <h2>Formação</h2>
+          </div>
+          <div class="education-list">
+            <article>
+              <p class="period">Em andamento · 5º semestre</p>
+              <h3>Análise e Desenvolvimento de Sistemas</h3>
+              <p>Universidade Federal do Paraná · Vespertino</p>
+            </article>
+            <article>
+              <p class="period">Concluído em 2019</p>
+              <h3>Curso de Inglês</h3>
+              <p>English Live Corporate · CCAA</p>
+            </article>
+          </div>
+        </div>
+
+        <div id="conhecimentos">
+          <div class="section-heading">
+            <p class="eyebrow">Tecnologias</p>
+            <h2>Conhecimentos</h2>
+          </div>
+          <div class="skills-list">
+            {
+              skills.map((skill) => (
+                <article>
+                  <h3>{skill.title}</h3>
+                  <div class="tags">
+                    {skill.items.map((item) => <span>{item}</span>)}
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="section soft-skills">
+        <div class="section-heading">
+          <p class="eyebrow">Colaboração</p>
+          <h2>Competências</h2>
+        </div>
+        <div class="competency-grid">
+          <p>Boa comunicação</p>
+          <p>Trabalho em equipe</p>
+          <p>Gestão de tempo</p>
+          <p>Pacote Office avançado</p>
+        </div>
+      </section>
     </main>
+
+    <footer>
+      <p>Bruno Brugnerotto de Lara</p>
+      <div>
+        <a href="mailto:brunobrugnerottodelara@gmail.com">E-mail</a>
+        <a
+          href="https://github.com/brunobrug"
+          target="_blank"
+          rel="noreferrer">GitHub</a
+        >
+      </div>
+    </footer>
   </body>
 </html>
