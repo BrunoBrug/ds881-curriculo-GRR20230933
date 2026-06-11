@@ -1,70 +1,111 @@
-# Projeto Individual: Currículo Online DS881
+# Currículo Online — Bruno Brugnerotto de Lara
 
-Este repositório é um **template** para a atividade prática individual da disciplina DS881. O objetivo é aplicar conceitos de conteinerização, automação de pipeline CI/CD e governança de código em um cenário de projeto real (seu currículo ou portfólio profissional).
+Currículo profissional desenvolvido como projeto individual da disciplina
+DS881. A aplicação é um site estático construído com Astro e TypeScript,
+conteinerizado com Docker e publicado automaticamente no GitHub Pages.
 
-## Instruções para Início
+## Aplicação
 
-Para iniciar o seu trabalho, siga estes passos:
+- **Produção:** [brunobrug.github.io/ds881-curriculo-GRR20230933](https://brunobrug.github.io/ds881-curriculo-GRR20230933/)
+- **Repositório:** [github.com/BrunoBrug/ds881-curriculo-GRR20230933](https://github.com/BrunoBrug/ds881-curriculo-GRR20230933)
 
-1. Clique no botão verde **"Use this template"** e selecione **"Create a new repository"**.
-2. Nomeie o repositório como `ds881-curriculo-GRR99999999`.
-3. Certifique-se de que a visibilidade seja **Public**.
-4. Configure a proteção da branch `main` imediatamente (instruções na seção 2.2).
+## Tecnologias
 
----
+- Astro
+- TypeScript
+- HTML e CSS
+- ESLint
+- Docker e Docker Compose
+- GitHub Actions
+- GitHub Pages
 
-## 1. Objetivo
-Desenvolver e publicar um currículo profissional ou portfólio pessoal utilizando o GitHub Pages. O projeto deve demonstrar o domínio de ferramentas de conteinerização, automação de pipeline CI/CD e governança de código via fluxos de trabalho estruturados, mesmo em um ambiente de desenvolvimento individual.
+## Execução local com Docker
 
-## 2. Requisitos Técnicos
+### Pré-requisitos
 
-### 2.1. Tecnologia e Stack
-* **Aplicação:** O site deve ser estático. É livre a escolha entre HTML/CSS puro ou o uso de geradores de site estático (SSG) como Astro, Hugo ou Jekyll.
-* **Hospedagem:** O deploy final deve ser realizado obrigatoriamente no GitHub Pages.
+- Docker Desktop ou Docker Engine
+- Docker Compose
 
-### 2.2. Conteinerização do Ambiente de Desenvolvimento (Docker)
-O repositório deve fornecer a infraestrutura necessária para que o projeto possa ser editado e testado localmente sem a exigência de instalar as linguagens ou dependências base (como Node.js ou Ruby) no sistema operacional do hospedeiro.
-* **Dockerfile:** Deve especificar uma imagem base adequada (ex: `node:alpine` ou `ruby:alpine`) e preparar o ambiente com as ferramentas necessárias para executar o gerador de site estático escolhido.
-* **Docker Compose (`docker-compose.yml`):** Deve ser configurado para iniciar o servidor de desenvolvimento nativo da ferramenta (ex: `vite dev`, `jekyll serve` ou `hugo server`).
-* **Mapeamento de Volumes (Bind Mounts):** A configuração do Compose deve mapear o diretório local do código-fonte para o diretório de trabalho dentro do contêiner. Isso é obrigatório para garantir o funcionamento do *hot reload* (atualização automática no navegador ao salvar um arquivo).
-* **Portas:** O servidor de desenvolvimento dentro do contêiner deve ser mapeado para responder na porta `8080` do localhost da máquina hospedeira.
+### Iniciar o ambiente
 
-### 2.3. Workflow de Git e Governança
-Apesar de ser um projeto individual, o projeto deve seguir as boas prática do desenvolvimento com git:
-* **Proteção de Branch:** A branch `main` deve estar configurada como protegida nas configurações do repositório.
-* **Fluxo de Trabalho:** É proibido realizar *push* direto na `main`. Toda alteração deve ser feita em uma branch secundária (ex: `feat/nome-da-feature`) e integrada via **Pull Request (PR)**.
-* **Critérios de Merge:** O merge para a `main` só deve ser permitido se o pipeline de CI estiver com status "verde" (sucesso).
-* **Mensagens de Commit:** Devem seguir o padrão *Conventional Commits* (ex: `feat:`, `fix:`, `ci:`, `docs:`).
+Na raiz do projeto, execute:
 
-### 2.4. CI/CD (GitHub Actions)
-Implementação de um workflow automatizado (`.github/workflows/main.yml`) contendo:
-1.  **Linter/Static Analysis:** Verificação de sintaxe e padrões de código.
-2.  **Build:** Validação de que a aplicação compila corretamente dentro do ambiente de CI.
-3.  **Deploy:** Publicação automatizada no GitHub Pages disparada após o merge na branch `main`.
+```bash
+docker compose up --build
+```
 
-## 3. Documentação
-O arquivo `README.md` deve conter:
-1.  Link público do currículo em produção.
-2.  Instruções detalhadas para execução do ambiente local via Docker.
-3.  Prints ou descrição da configuração de proteção da branch `main` aplicada no GitHub.
+O currículo estará disponível em:
 
-## 4. Critérios de Avaliação
+```text
+http://localhost:8080
+```
 
-| Item | Peso |
-| :--- | :--- |
-| Configuração correta de Docker (Dockerfile e Compose) | 30% |
-| Pipeline de CI/CD funcional (Lint, Build e Deploy) | 30% |
-| Evidência de uso de Pull Requests e Branch Protection | 20% |
-| Qualidade da documentação e histórico de commits | 10% |
-| Funcionamento da aplicação no GitHub Pages | 10% |
+O diretório do projeto é montado dentro do contêiner. Alterações nos arquivos
+em `src/` são refletidas automaticamente no navegador por meio do hot reload.
 
+Para encerrar:
 
----
+```bash
+docker compose down
+```
 
-## 5. Entrega e Avaliação
+## Comandos de qualidade
 
-A entrega deve ser realizada através do formulário disponibilizado pelo professor, contendo o link do seu repositório público.
+Os comandos abaixo também podem ser executados localmente quando Node.js 22
+estiver instalado:
 
----
+```bash
+npm ci
+npm test
+npm run lint
+npm run check
+npm run build
+```
 
-> **Atenção:** Não esqueça de anexar no final deste README ou na documentação do projeto um print comprovando que a regra de **Branch Protection** da `main` foi configurada no GitHub.
+## CI/CD
+
+O workflow [`.github/workflows/main.yml`](.github/workflows/main.yml) executa:
+
+1. **Testes:** valida o conteúdo essencial do currículo.
+2. **Lint:** verifica os padrões do código.
+3. **Astro Check:** valida arquivos Astro e TypeScript.
+4. **Build:** gera o site estático no diretório `dist`.
+5. **Deploy:** publica o artefato no GitHub Pages após alterações na `main`.
+
+Pull Requests direcionados à `main` executam testes, lint e build. O deploy
+ocorre somente após o merge.
+
+## Fluxo Git
+
+O projeto utiliza branches de trabalho e Pull Requests:
+
+```bash
+git switch -c feat/nome-da-feature
+git add .
+git commit -m "feat: descreve a alteração"
+git push -u origin feat/nome-da-feature
+```
+
+As mensagens seguem o padrão Conventional Commits, como `feat:`, `fix:`,
+`docs:`, `build:` e `ci:`.
+
+## Proteção da branch `main`
+
+A `main` deve permanecer protegida com as seguintes regras:
+
+- exigir Pull Request antes do merge;
+- exigir aprovação dos checks `lint` e `build`;
+- exigir que a branch esteja atualizada antes do merge;
+- bloquear exclusão da branch;
+- bloquear force push;
+- impedir bypass das regras, quando a opção estiver disponível.
+
+Os checks devem ser selecionados com origem no **GitHub Actions**, após a
+primeira execução do workflow. Pushes diretos para a `main` não fazem parte do
+fluxo adotado pelo projeto.
+
+## GitHub Pages
+
+Em **Settings → Pages → Build and deployment**, a origem da publicação deve
+estar configurada como **GitHub Actions**. O endereço público será atualizado
+automaticamente após cada merge bem-sucedido na `main`.
